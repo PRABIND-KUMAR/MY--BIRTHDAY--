@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Birthday | PRABIND</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background:
+    radial-gradient(ellipse at 50% 40%, #38245d 0%, #17112d 45%, #080712 100%);
+  color: white;
+  font-family: Georgia, serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 35px 12px;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+    radial-gradient(2px 2px at 70% 20%, #f5d58c, transparent),
+    radial-gradient(2px 2px at 80% 75%, #fff, transparent),
+    radial-gradient(2px 2px at 30% 80%, #fff, transparent);
+  background-size: 180px 180px;
+  animation: twinkle 4s infinite alternate;
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 440px;
+  padding: 30px 18px;
+  border: 1px solid #d6b66e;
+  border-radius: 24px;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.025)
+  );
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 45px #a37aff35,
+              inset 0 0 20px #ffffff0a;
+}
+
+.small-title {
+  color: #f4d995;
+  letter-spacing: 5px;
+  font-size: 12px;
+}
+
+h1 {
+  margin-top: 14px;
+  font-size: clamp(30px, 8vw, 39px);
+  color: #ffe6a6;
+  text-shadow: 0 0 20px #d7a84d;
+}
+
+.date {
+  margin-top: 12px;
+  color: #e7d8f7;
+  letter-spacing: 3px;
+  font-size: 14px;
+}
+
+.scene {
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 800px;
+  margin: 10px 0;
+}
+
+.cake {
+  position: relative;
+  width: 170px;
+  height: 140px;
+  transform-style: preserve-3d;
+  animation: cakeFloat 4s ease-in-out infinite;
+}
+
+.layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50% / 18%;
+  background: linear-gradient(
+    90deg, #713b89, #d68bdc, #81419d
+  );
+  box-shadow: 0 8px 20px #0008;
+}
+
+.layer.bottom {
+  width: 170px;
+  height: 75px;
+  bottom: 0;
+}
+
+.layer.middle {
+  width: 140px;
+  height: 65px;
+  bottom: 48px;
+  background: linear-gradient(
+    90deg, #9c5bba, #f2b8e9, #9953ae
+  );
+}
+
+.layer.top {
+  width: 110px;
+  height: 55px;
+  bottom: 90px;
+  background: linear-gradient(
+    90deg, #d69b52, #ffe4a0, #c78b44
+  );
+}
+
+.icing {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 25px;
+  bottom: 47px;
+  background: #ffe0c5;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px #0005;
+}
+
+.candle {
+  position: absolute;
+  bottom: 135px;
+  left: 50%;
+  width: 9px;
+  height: 43px;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    45deg, #fff 0 5px, #d99acb 5px 10px
+  );
+  border-radius: 4px;
+}
+
+.flame {
+  position: absolute;
+  width: 15px;
+  height: 23px;
+  background: #ffd34f;
+  border-radius: 50% 50% 40% 40%;
+  top: -24px;
+  left: -3px;
+  box-shadow: 0 0 18px #ffb52e,
+              0 0 35px #ffcc56;
+  animation: flicker .5s infinite alternate;
+}
+
+.plate {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(60deg);
+  background: linear-gradient(#fff0bd, #ad8041);
+  border-radius: 50%;
+  box-shadow: 0 12px 25px #0008;
+}
+
+.message {
+  margin: 12px 0;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #f4eafa;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.time-box {
+  min-width: 65px;
+  padding: 12px 5px;
+  background: #ffffff12;
+  border: 1px solid #d6b66e77;
+  border-radius: 12px;
+}
+
+.time-box strong {
+  display: block;
+  font-size: 25px;
+  color: #ffe2a0;
+}
+
+.time-box span {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #d9c9e9;
+}
+
+button {
+  padding: 14px 27px;
+  border: 1px solid #fff0bd;
+  border-radius: 30px;
+  background: linear-gradient(45deg,#ad8145,#ffe6a6);
+  color: #27162c;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 25px #e5bd6b66;
+  transition: .3s;
+}
+
+button:active {
+  transform: scale(.95);
+}
+
+#message {
+  display: none;
+  margin-top: 25px;
+  animation: appear 1.2s ease;
+}
+
+#message h2 {
+  color: #ffe4a0;
+  margin-bottom: 12px;
+  font-size: 23px;
+}
+
+.signature {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 10;
+  font-size: 14px;
+  font-style: italic;
+  letter-spacing: 2px;
+  color: #f2d89c;
+  text-shadow: 0 0 12px #ffe0a0;
+}
+
+.balloon {
+  position: fixed;
+  bottom: -100px;
+  font-size: 40px;
+  animation: float 12s linear infinite;
+  pointer-events: none;
+}
+
+.b1 { left: 5%; }
+.b2 { left: 85%; animation-delay: 3s; }
+.b3 { left: 20%; animation-delay: 6s; }
+.b4 { left: 70%; animation-delay: 8s; }
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  width: 9px;
+  height: 15px;
+  z-index: 20;
+  pointer-events: none;
+  animation: fall 4s linear forwards;
+}
+
+@keyframes cakeFloat {
+  50% { transform: translateY(-12px) rotateY(12deg); }
+}
+
+@keyframes flicker {
+  to { transform: scale(.8) rotate(8deg); }
+}
+
+@keyframes float {
+  to { transform: translateY(-120vh) rotate(30deg); }
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes twinkle {
+  to { opacity: .4; }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="balloon b1">🎈</div>
+<div class="balloon b2">🎈</div>
+<div class="balloon b3">🎈</div>
+<div class="balloon b4">🎈</div>
+
+<main class="card">
+
+  <div class="small-title">A SPECIAL DAY</div>
+
+  <h1>It's My Birthday! 🎉</h1>
+
+  <div class="date">11 • NOVEMBER • 2026</div>
+
+  <div class="scene">
+    <div class="cake">
+
+      <div class="plate"></div>
+      <div class="layer bottom"></div>
+      <div class="icing"></div>
+      <div class="layer middle"></div>
+      <div class="layer top"></div>
+
+      <div class="candle">
+        <div class="flame"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="message">
+    A new year, a new chapter<br>
+    and beautiful memories ahead. ✨
+  </p>
+
+  <div class="countdown" id="countdown">
+    <div class="time-box">
+      <strong id="days">00</strong>
+      <span>DAYS</span>
+    </div>
+    <div class="time-box">
+      <strong id="hours">00</strong>
+      <span>HOURS</span>
+    </div>
+    <div class="time-box">
+      <strong id="minutes">00</strong>
+      <span>MINUTES</span>
+    </div>
+    <div class="time-box">
+      <strong id="seconds">00</strong>
+      <span>SECONDS</span>
+    </div>
+  </div>
+
+  <button onclick="celebrate()">
+    Celebrate Me! 🥳
+  </button>
+
+  <div id="message">
+
+    <h2>Happy Birthday to Me! ❤️</h2>
+
+    <p>
+      Wishing myself a very Happy Birthday! 🥳🎉
+      May this year bring lots of happiness,
+      fun and beautiful memories. ❤️✨
+    </p>
+
+    <br>
+
+    <p>
+      It's my birthday! 🎂<br>
+      No big plans, just me enjoying my
+      special day. ❤️✨
+    </p>
+
+  </div>
+
+</main>
+
+<div class="signature">By PRABIND</div>
+
+<script>
+
+const birthday = new Date(2026, 10, 11, 0, 0, 0).getTime();
+
+function updateCountdown() {
+  const now = Date.now();
+  const diff = birthday - now;
+
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML =
+      "<h2 style='color:#ffe4a0'>🎉 It's My Day! 🎂</h2>";
+    return;
+  }
+
+  document.getElementById("days").textContent =
+    Math.floor(diff / 86400000);
+
+  document.getElementById("hours").textContent =
+    Math.floor((diff % 86400000) / 3600000);
+
+  document.getElementById("minutes").textContent =
+    Math.floor((diff % 3600000) / 60000);
+
+  document.getElementById("seconds").textContent =
+    Math.floor((diff % 60000) / 1000);
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+function celebrate() {
+
+  document.getElementById("message").style.display = "block";
+
+  for (let i = 0; i < 150; i++) {
+
+    let c = document.createElement("div");
+    c.className = "confetti";
+
+    c.style.left = Math.random() * 100 + "vw";
+
+    c.style.background = [
+      "#ffe4a0",
+      "#ff6b9d",
+      "#b48aff",
+      "#ffffff",
+      "#8be9fd"
+    ][Math.floor(Math.random() * 5)];
+
+    c.style.animationDelay = Math.random() * 2 + "s";
+
+    document.body.appendChild(c);
+
+    setTimeout(() => c.remove(), 6000);
+  }
+}
+
+</script>
+
+</body>
+</html>
